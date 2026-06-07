@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Team {
+  id         Int         @id @default(autoincrement())
+  teamName   String
+  teamCode   String
+  createdAt  DateTime    @default(now())
+  members    Member[]
+  hackathons Hackathon[]
+}
+
+model Member {
+  id       Int      @id @default(autoincrement())
+  userName String
+  skills   String[]
+  score    Int      @default(0)
+  teamId   Int
+  team     Team     @relation(fields: [teamId], references: [id])
+}
+
+model Hackathon {
+  id            Int        @id @default(autoincrement())
+  hackathonName String
+  platform      String?
+  status        String     @default("active")
+  teamId        Int
+  team          Team       @relation(fields: [teamId], references: [id])
+  tasks         Task[]
+  resources     Resource[]
+}
+
+model Task {
+  id          Int       @id @default(autoincrement())
+  title       String
+  status      String    @default("assigned")
+  hackathonId Int
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+}
+
+model Resource {
+  id             Int       @id @default(autoincrement())
+  githubLink     String?
+  pptLink        String?
+  videoLink      String?
+  submissionLink String?
+  hackathonId    Int
+  hackathon      Hackathon @relation(fields: [hackathonId], references: [id])
+}
