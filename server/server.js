@@ -5,6 +5,8 @@ import cors from 'cors';
 
 import { teamRouter } from './routes/team.routes.js';
 import { authRouter } from './routes/auth.routes.js';
+import { hackathonRouter } from './routes/hackathon.routes.js';
+import { taskRouter } from './routes/task.routes.js';
 
 dotenv.config();
 const app = express();
@@ -19,6 +21,8 @@ app.use(cors())
 //USE Routes
 app.use("/api/teams",teamRouter);
 app.use("/api/auth",authRouter);
+app.use("/api/hackathon",hackathonRouter);
+app.use("/api/tasks",taskRouter);
 
 app.get("/",()=>{
  return "App is running Successfully";

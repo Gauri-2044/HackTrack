@@ -16,8 +16,12 @@ export async function getMemberById(memberId) {
     })
 }
 
-export async function  getAllMembers() {
-    return await Prisma.member.findMany();
+export async function  getAllMembers(id) {
+    return await Prisma.member.findMany({
+        where:{
+            teamId:id
+        }
+    });
 }
 
 //UPDATE

@@ -202,4 +202,4 @@ This project helped in understanding:
 
 👨‍💻 Developed By
 
-Om Bhasme
+Gauri Bhasme

@@ -8,16 +8,29 @@ export async function createTeam(teamData){
     });
 }
 
+export async function addMember(teamId, member){
+    return await Prisma.team.update({
+        where:{
+            id: teamId
+        },
+        data: {
+            members: {
+                push: member
+            }
+        }
+    })
+}
+
 //READ ALL Teams
 export async function getAllTeams(){
     return await Prisma.team.findMany();
 }
 
 //Get a Team
-export async function getTeam(teamName) {
+export async function getTeam(teamId) {
     return await Prisma.team.findFirst({
         where:{
-            teamName : teamName,
+            id : teamId,
         },
     });
 }

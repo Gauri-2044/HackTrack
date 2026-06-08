@@ -14,6 +14,8 @@ datasource db {
 model Team {
   id         Int         @id @default(autoincrement())
   teamName   String
+  tagline    String?
+  teamLogo   String?
   teamCode   String
   createdAt  DateTime    @default(now())
   members    Member[]
@@ -21,12 +23,18 @@ model Team {
 }
 
 model Member {
-  id       Int      @id @default(autoincrement())
-  userName String
-  skills   String[]
-  score    Int      @default(0)
-  teamId   Int
-  team     Team     @relation(fields: [teamId], references: [id])
+  id           Int      @id @default(autoincrement())
+  userName     String
+  skills       String[]
+  role         String?
+  score        Int      @default(0)
+  teamId       Int
+  team         Team     @relation(fields: [teamId], references: [id])
+  joinedAt     DateTime @default(now())
+  githubURL    String?
+  linkedinURL  String?
+  portfolioURL String?
+  tasks        Task[]
 }
 
 model Hackathon {
@@ -41,11 +49,14 @@ model Hackathon {
 }
 
 model Task {
-  id          Int       @id @default(autoincrement())
-  title       String
-  status      String    @default("assigned")
-  hackathonId Int
-  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+  id           Int       @id @default(autoincrement())
+  title        String
+  description  String?
+  status       String    @default("todo")
+  assignedToId Int?
+  assignedTo   Member?   @relation(fields: [assignedToId], references: [id])
+  hackathonId  Int
+  hackathon    Hackathon @relation(fields: [hackathonId], references: [id])
 }
 
 model Resource {

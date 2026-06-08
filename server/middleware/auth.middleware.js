@@ -1,4 +1,6 @@
 import {verifyAndDecodeToken} from '../config/jwt.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export function authMiddleware(req, res, next){
 
@@ -16,12 +18,19 @@ export function authMiddleware(req, res, next){
                 message: "Token Format Invalid (Bearer token expected)"
             });
         }
+
         req.team = verifyAndDecodeToken(token);
+
+        // now req.team={
+        //     teamId, teamName
+        // }
+        //AB YE WALA HUM KHI PAR BHI ACCESS KR SAKTE HAII
 
         next();
     }catch(err){
         return res.status(401).json({
-            message:"Invalid Token"
+            // message:"Invalid Token"
+            message: err.message
         });
     }
 }

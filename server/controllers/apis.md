@@ -49,6 +49,23 @@ Server :
         Email address is already registered.: 409
 
 
+## get profile of Each User
+Member {
+    basicInfo
+    performance
+    tasksHistory
+    <!-- hackathonHistory -->
+    socialLinks
+}
 
+## get Team profile
+{
+  "teamInfo": {},
+  "stats": {},
+  "members": [],
+  "activeHackathons": [],
+  "recentActivity": [],
+  "topSkills": []
+}
 
     
