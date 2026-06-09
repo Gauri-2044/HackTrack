@@ -1,6 +1,6 @@
 import { generateToken } from "../config/jwt.js";
 import bcrypt from 'bcrypt'; //for code hashing
-import { getTeam, createTeam } from "../repositories/team.repository.js";
+import { getTeamByNameRepo, createTeamRepo } from "../repositories/team.repository.js";
 
 
 export async function loginTeam(req, res) {
@@ -14,7 +14,7 @@ export async function loginTeam(req, res) {
       });
     }
 
-    const team = await getTeam(teamName);
+    const team = await getTeamByNameRepo(teamName);
 
     if (!team) {
       return res.status(401).json({
@@ -66,7 +66,7 @@ export async function registerTeam(req, res) {
       });
     }
 
-    const existingTeam = await getTeam(teamName);
+    const existingTeam = await getTeamByNameRepo(teamName);
     if (existingTeam) {
       return res.status(409).json({
         success: false,
@@ -77,7 +77,7 @@ export async function registerTeam(req, res) {
     //hashed code 
     const hashedCode = await bcrypt.hash(teamCode, 10);
 
-    const newTeam = await createTeam({
+    const newTeam = await createTeamRepo({
       teamName,
       teamCode: hashedCode,
     });

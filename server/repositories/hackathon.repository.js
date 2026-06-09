@@ -1,14 +1,14 @@
 import Prisma from "../lib/prisma.js";
 
 //CREATE
-export async function createHackathon(hackathonData){
+export async function createHackathonRepo(hackathonData){
     return await Prisma.hackathon.create({
         data: hackathonData,
     });
 }
 
 //READ
-export async function getHackathonById(hackathonId){
+export async function getHackathonByIdRepo(hackathonId){
     return await Prisma.hackathon.findUnique({
         where:{
             id:hackathonId,
@@ -16,11 +16,17 @@ export async function getHackathonById(hackathonId){
     });
 }
 
-export async function getAllHackathons(){
-    return await Prisma.hackathon.findMany();
+export async function getAllHackathonsRepo({filters, orderBy, skip, limit}){
+    return await Prisma.hackathon.findMany({
+        where:filters,
+        orderBy,
+        skip,
+        take:limit,
+        include:{stages:true, tasks:true}
+    });
 }
 
-export async function getAllHackathonsWithTeamId(teamID) {
+export async function getAllHackathonsWithTeamIdRepo(teamID) {
     return await Prisma.hackathon.findMany({
         where:{
             teamId: teamID,
@@ -29,12 +35,12 @@ export async function getAllHackathonsWithTeamId(teamID) {
 }
 
 //Update
-export async function updateStatus(hackathonId, status) {
+export async function updateStatusRepo(hackathonId, status) {
     return await Prisma.hackathon.update({
         where:{
             id: hackathonId,
         },
-        update:{
+        data:{
             status: status,
         }
     })
@@ -42,7 +48,7 @@ export async function updateStatus(hackathonId, status) {
 }
 
 //DELETE
-export async function deleteHackathon(hackathonId) {
+export async function deleteHackathonRepo(hackathonId) {
     return await Prisma.hackathon.delete({
         where:{
             id: hackathonId,

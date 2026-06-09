@@ -20,6 +20,7 @@ model Team {
   createdAt  DateTime    @default(now())
   members    Member[]
   hackathons Hackathon[]
+  tasks      Task[]
 }
 
 model Member {
@@ -35,6 +36,7 @@ model Member {
   linkedinURL  String?
   portfolioURL String?
   tasks        Task[]
+  createdAt    DateTime @default(now())
 }
 
 model Hackathon {
@@ -45,7 +47,19 @@ model Hackathon {
   teamId        Int
   team          Team       @relation(fields: [teamId], references: [id])
   tasks         Task[]
+  stages        Stage[]
   resources     Resource[]
+  createdAt     DateTime   @default(now())
+}
+
+model Stage {
+  id          Int       @id @default(autoincrement())
+  stageName   String
+  deadline    String    @default("Not Declared")
+  hackathonId Int
+  status      String    @default("upcoming")
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+  createdAt   DateTime  @default(now())
 }
 
 model Task {
@@ -54,9 +68,13 @@ model Task {
   description  String?
   status       String    @default("todo")
   assignedToId Int?
+  priority     String    @default("medium")
   assignedTo   Member?   @relation(fields: [assignedToId], references: [id])
   hackathonId  Int
   hackathon    Hackathon @relation(fields: [hackathonId], references: [id])
+  teamId       Int
+  team         Team      @relation(fields: [teamId], references: [id])
+  createdAt    DateTime  @default(now())
 }
 
 model Resource {
@@ -67,4 +85,5 @@ model Resource {
   submissionLink String?
   hackathonId    Int
   hackathon      Hackathon @relation(fields: [hackathonId], references: [id])
+  submittedAt    DateTime  @default(now())
 }

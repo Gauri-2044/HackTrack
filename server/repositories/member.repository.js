@@ -1,36 +1,43 @@
-import Prisma  from "../lib/prisma.js";
+import Prisma from "../lib/prisma.js";
 
-//CREATE
-export async function createMember(memberData) {
+// CREATE
+export async function createMemberRepo(memberData) {
     return await Prisma.member.create({
-        data:memberData, //pass an object
-    })
+        data: memberData, // pass an object
+    });
 }
 
-//READ
-export async function getMemberById(memberId) {
+// READ
+export async function getMemberByIdRepo(memberId) {
     return await Prisma.member.findUnique({
         where:{
-            id:memberId,
-        }
-    })
-}
-
-export async function  getAllMembers(id) {
-    return await Prisma.member.findMany({
-        where:{
-            teamId:id
+            id: memberId,
         }
     });
 }
 
-//UPDATE
+export async function getAllMembersRepo(filters, orderBy) {
+    return await Prisma.member.findMany({
+        where: filters,
+        orderBy: orderBy
+    });
+}
 
-//DELETE
-export async function deleteMemberById(memberId) {
+// UPDATE
+export async function editMemberRepo(memberId, memberData) {
+    return await Prisma.member.update({
+        where: {
+            id: memberId
+        },
+        data: memberData
+    });
+}
+
+// DELETE
+export async function deleteMemberByIdRepo(memberId) {
     return await Prisma.member.delete({
         where:{
             id: memberId,
         }
-    })
+    });
 }

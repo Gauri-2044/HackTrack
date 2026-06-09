@@ -68,4 +68,30 @@ Member {
   "topSkills": []
 }
 
-    
+
+## Test Listing Routes 
+##### special Queries : Order, sortBy, limit and Page
+
+- GET /team/tasks?status=todo&priority=high&sortBy=createdAt&order=desc&page=1&limit=10
+- GET /hackathon/:hackathonId/stages?status=upcoming&sortBy=deadline&order=asc&page=1&limit=10
+
+Example :
+#### STEP 1 — TAKE QUERY PARAMS
+const {
+    skill,
+    role,
+    minScore,
+    search,
+    sortBy,
+    order
+} = req.query;
+
+###### FRONTEND CAN NOW SEND
+order could be anything just key:value hona chahiye
+
+GET /team/members?skill=backend
+OR:
+GET /team/members?sortBy=score&order=desc
+OR:
+GET /team/members?role=designer&sortBy=joinedAt&order=asc
+

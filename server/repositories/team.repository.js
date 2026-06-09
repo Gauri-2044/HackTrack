@@ -2,13 +2,13 @@
 import Prisma from '../lib/prisma.js';
 
 //CREATE a Team 
-export async function createTeam(teamData){
+export async function createTeamRepo(teamData){
     return await Prisma.team.create({
         data: teamData //a object
     });
 }
 
-export async function addMember(teamId, member){
+export async function addMemberRepo(teamId, member){
     return await Prisma.team.update({
         where:{
             id: teamId
@@ -22,15 +22,23 @@ export async function addMember(teamId, member){
 }
 
 //READ ALL Teams
-export async function getAllTeams(){
+export async function getAllTeamsRepo(){
     return await Prisma.team.findMany();
 }
 
 //Get a Team
-export async function getTeam(teamId) {
+export async function getTeamByIdRepo(teamId) {
     return await Prisma.team.findFirst({
         where:{
             id : teamId,
+        },
+    });
+}
+
+export async function getTeamByNameRepo(teamName) {
+    return await Prisma.team.findFirst({
+        where:{
+            teamName : teamName,
         },
     });
 }
@@ -57,8 +65,16 @@ export async function getTeam(teamId) {
 //     });
 // }
 
+//UPDATE team Profile
+export async function updateTeamRepo(teamId, teamData) {
+    return await Prisma.team.update({
+        where:{id:teamId},
+        data: teamData
+    })
+}
+
 //DELETE TEAM
-export async function deleteTeam(teamId) {
+export async function deleteTeamRepo(teamId) {
     await Prisma.team.delete({
   where: {
     id: teamId,
