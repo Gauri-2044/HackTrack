@@ -3,4 +3,3 @@ node_modules
 .env
 
 /generated/prisma
-BackEnd_EndPoint_Testing.pdf
