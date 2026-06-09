@@ -1,3 +1,9 @@
+## Postgre 
+- npm install pg
+
+Use .js at the end of files for importing when the type is module
+
+
 ## APIs
 
 NOTE : If it is the error from DB then always say

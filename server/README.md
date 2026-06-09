@@ -1,8 +1,3 @@
-## Postgre 
-- npm install pg
-
-Use .js at the end of files for importing when the type is module
-
 # HackTrack – Hackathon Team Management Platform
 
 HackTrack is a collaborative hackathon management platform designed for student teams to efficiently manage hackathons, tasks, resources, and team workflows in one centralized workspace.
