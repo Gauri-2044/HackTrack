@@ -1,0 +1,1 @@
+//It will have isLoggedIn to access via complete APP
