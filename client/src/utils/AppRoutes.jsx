@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Toaster } from 'react-hot-toast';
 
 import Landing from "../pages/LandingPage";
 import Login from "../pages/Login";
@@ -14,75 +15,47 @@ import Notification from "../pages/Notification";
 import ProtectedRoute from "./ProtectedRoute";
 
 import PublicLayout from "../layouts/PublicLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 function AppRoutes() {
   return (
-    <Routes>
+    <> 
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: '#12121a',
+            color: '#fff',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            fontFamily: 'Gotham, Montserrat, sans-serif',
+          },
+        }}
+      />    
+      <Routes>
 
-      {/* PUBLIC ROUTES */}
-      <Route element={<PublicLayout />}>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Route>
+        {/* PUBLIC ROUTES */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
 
-      {/* PRIVATE ROUTES */}
-
-      <Route
-        path="/dashboard"
-        element={
+        {/* PRIVATE ROUTES */}
+        <Route element={
           <ProtectedRoute>
-            <Dashboard />
+            <DashboardLayout />
           </ProtectedRoute>
-        }
-      />
+        }>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/team" element={<TeamProfile />} />
+          <Route path="/members/:id" element={<MemberProfile />} />
+          <Route path="/hackathons" element={<HackathonList />} />
+          <Route path="/hackathon/:id" element={<HackathonPage />} />
+          <Route path="/notification" element={<Notification />} />
+        </Route>
 
-      <Route
-        path="/team"
-        element={
-          <ProtectedRoute>
-            <TeamProfile />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/members/:id"
-        element={
-          <ProtectedRoute>
-            <MemberProfile />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/hackathons"
-        element={
-          <ProtectedRoute>
-            <HackathonList />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/hackathon/:id"
-        element={
-          <ProtectedRoute>
-            <HackathonPage />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/notification"
-        element={
-          <ProtectedRoute>
-            <Notification />
-          </ProtectedRoute>
-        }
-      />
-
-    </Routes>
+      </Routes>
+    </>
   );
 }
 

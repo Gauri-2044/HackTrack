@@ -13,7 +13,7 @@ datasource db {
 
 model Team {
   id         Int         @id @default(autoincrement())
-  teamName   String
+  teamName   String      @unique
   tagline    String?
   teamLogo   String?
   teamCode   String
@@ -26,6 +26,8 @@ model Team {
 model Member {
   id           Int      @id @default(autoincrement())
   userName     String
+  email        String   @unique
+  password     String
   skills       String[]
   role         String?
   score        Int      @default(0)

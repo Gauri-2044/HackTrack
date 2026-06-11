@@ -1,6 +1,6 @@
 import { createMemberRepo, getMemberByIdRepo, deleteMemberByIdRepo, getAllMembersRepo, editMemberRepo } from '../repositories/member.repository.js';
 import { getAllTasksOfMemberRepo } from '../repositories/task.repository.js';
-
+import bcrypt from 'bcrypt';
 
 //TEAM Creation is done Via Auth
 
@@ -116,34 +116,53 @@ export async function performanceAnalysis(req, res) {
 export async function createTeamMember(req, res) {
     try {
         const teamId = Number(req.team.teamId);
-        const { memberName, skills } = req.body;
+        const { memberName, email, password, role, skills } = req.body;
 
-        //log for testing 
+        if (!memberName || !email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Missing member name, email, or password."
+            });
+        }
 
         console.log("teamId:", teamId);
         console.log("memberData:", {
             userName: memberName,
-            skills,
+            email,
+            role: role || "Member",
+            skills: skills || [],
             teamId
         });
 
-        //create a object of member
+        // Hash password before saving
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        //create an object of member
         const newMember = await createMemberRepo({
             userName: memberName,
-            skills: skills,
+            email,
+            password: hashedPassword,
+            role: role || "Member",
+            skills: skills || [],
             teamId: teamId,
         });
 
         return res.status(201).json({
             success: true,
             message: "Member added Successfully",
-            data: newMember
+            data: {
+                id: newMember.id,
+                userName: newMember.userName,
+                email: newMember.email,
+                role: newMember.role,
+                skills: newMember.skills
+            }
         });
     } catch (err) {
         return res.status(500).json({
             success: false,
             message: err.message
-        })
+        });
     }
 }
 

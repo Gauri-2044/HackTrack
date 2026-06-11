@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
+import { login } from "../services/auth";
 
 const Login = function() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
+    teamName: "",
     email: "",
     password: "",
     teamCode: "",
@@ -15,10 +18,14 @@ const Login = function() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting login form: ", formData);
-    // Login logic would execute here
+    
+    const response = await login(formData);
+    if (response && response.success) {
+      navigate('/dashboard');
+    }
   };
 
   return (
@@ -117,7 +124,7 @@ const Login = function() {
           <form className="auth-form" onSubmit={handleSubmit}>
 
             <div className="auth-form-group">
-              <label htmlFor="email">Team Name </label>
+              <label htmlFor="teamName">Team Name </label>
               <div className="auth-input-wrapper">
                 <input
                   type="text"

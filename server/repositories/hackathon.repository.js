@@ -12,6 +12,19 @@ export async function getHackathonByIdRepo(hackathonId){
     return await Prisma.hackathon.findUnique({
         where:{
             id:hackathonId,
+        },
+        include: {
+            stages: {
+                orderBy: {
+                    createdAt: 'asc'
+                }
+            },
+            resources: true,
+            tasks: {
+                include: {
+                    assignedTo: true
+                }
+            }
         }
     });
 }

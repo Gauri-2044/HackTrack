@@ -1,0 +1,127 @@
+/* ===== CURVED DASHBOARD BOTTOM NAVBAR ===== */
+
+.dash-navbar-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 100%;
+  max-width: 480px;
+  padding: 0 16px;
+}
+
+.curved-navbar {
+  display: flex;
+  background: var(--navbar-bg);
+  border: 1px solid var(--navbar-border);
+  height: 70px;
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 12px 30px var(--navbar-shadow);
+  width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 12px;
+  text-decoration: none;
+  position: relative;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.nav-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-secondary);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.25), background-color 0.3s ease, border 0.3s ease;
+}
+
+.nav-svg-icon {
+  width: 22px;
+  height: 22px;
+  transition: stroke 0.3s ease;
+}
+
+.nav-tab-label {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+/* ===== ACTIVE TAB STATE ===== */
+.nav-tab.active {
+  color: var(--text-primary);
+}
+
+.nav-tab.active .nav-icon-wrap {
+  transform: translate(-50%, -26px);
+  background: var(--navbar-bg); /* active circle background matching navbar */
+  border: 5px solid var(--active-circle-border); /* page bg color border to cut out navbar */
+  color: var(--active-icon-color);
+  box-shadow: 0 6px 16px var(--navbar-shadow);
+}
+
+.nav-tab.active .nav-tab-label {
+  font-weight: 800;
+  opacity: 1;
+  transform: translateY(2px);
+}
+
+/* Curved shoulder cutouts using inverted border radius */
+.nav-tab.active::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-43px); /* Offset to line up with the 5px border circle edge */
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border-top-right-radius: 12px;
+  box-shadow: 4px -4px 0 4px var(--active-circle-border); /* Page bg color mask */
+  pointer-events: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.nav-tab.active::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: 50%;
+  transform: translateX(43px);
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border-top-left-radius: 12px;
+  box-shadow: -4px -4px 0 4px var(--active-circle-border); /* Page bg color mask */
+  pointer-events: none;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Hover effects for inactive tabs */
+.nav-tab:not(.active):hover .nav-icon-wrap {
+  color: var(--text-primary);
+  transform: translate(-50%, -4px);
+}
+
+.nav-tab:not(.active):hover .nav-tab-label {
+  opacity: 1;
+}

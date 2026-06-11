@@ -239,7 +239,7 @@ const LandingPage = function() {
             </p>
             
             <Link to="/register" className="btn-primary">
-              Create Your Team &rarr;
+              Create Free WorkSpace &rarr;
             </Link>
           </div>
         </div>

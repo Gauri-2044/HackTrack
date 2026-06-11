@@ -16,6 +16,14 @@ export async function getMemberByIdRepo(memberId) {
     });
 }
 
+export async function getMemberByEmailRepo(email) {
+    return await Prisma.member.findUnique({
+        where:{
+            email:email,
+        }
+    });
+}
+
 export async function getAllMembersRepo(filters, orderBy) {
     return await Prisma.member.findMany({
         where: filters,

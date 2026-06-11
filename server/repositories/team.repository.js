@@ -28,7 +28,7 @@ export async function getAllTeamsRepo(){
 
 //Get a Team
 export async function getTeamByIdRepo(teamId) {
-    return await Prisma.team.findFirst({
+    return await Prisma.team.findUnique({
         where:{
             id : teamId,
         },
