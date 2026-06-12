@@ -14,6 +14,7 @@ import {
 import { getTasksForTeam } from '../controllers/task.controller.js';
 import { authMiddleware } from '../middleware/auth.middleware.js';
 
+
 export const teamRouter = express.Router();
 
 // Protected routes requiring authentication

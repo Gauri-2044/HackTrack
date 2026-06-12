@@ -1,13 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import {pool} from './config/db.js';
+import {pool} from './src/config/db.js';
 import cors from 'cors';
 
-import { teamRouter } from './routes/team.routes.js';
-import { authRouter } from './routes/auth.routes.js';
-import { hackathonRouter } from './routes/hackathon.routes.js';
-import { taskRouter } from './routes/task.routes.js';
-import { notFoundMiddleware } from './middleware/notFound.middleware.js';
+import { teamRouter } from './src/routes/team.routes.js';
+import { authRouter } from './src/routes/auth.routes.js';
+import { hackathonRouter } from './src/routes/hackathon.routes.js';
+import { taskRouter } from './src/routes/task.routes.js';
+import { notFoundMiddleware } from './src/middleware/notFound.middleware.js';
 
 dotenv.config();
 const app = express();

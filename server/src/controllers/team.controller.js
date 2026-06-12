@@ -13,11 +13,12 @@ import { getTeamByIdRepo, deleteTeamRepo } from '../repositories/team.repository
 //hackathons
 import { getAllHackathonsWithTeamIdRepo } from '../repositories/hackathon.repository.js';
 //tasks
-import { getAllActiveTasksForTeamRepo } from '../repositories/task.repository.js'
+import { getAllActiveTasksForTeamRepo } from '../repositories/task.repository.js';
 
 
 //update profile 
 import { updateTeamRepo } from '../repositories/team.repository.js';
+
 
 export async function loadProfile(req, res) {
     try {
