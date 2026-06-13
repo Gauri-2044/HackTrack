@@ -1,6 +1,7 @@
 import { generateToken } from "../config/jwt.js";
 import bcrypt from 'bcrypt'; //for code hashing
-import { getTeamByIdRepo, createTeamRepo } from "../repositories/team.repository.js";
+import { getTeamByIdRepo, createTeamRepo, getTeamByNameRepo } from "../repositories/team.repository.js";
+
 import { createMemberRepo, getMemberByEmailRepo } from '../repositories/member.repository.js';
 
 
