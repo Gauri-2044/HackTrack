@@ -22,6 +22,7 @@ const configuredOrigins = [
   process.env.FRONTEND_URL,
   ...(process.env.FRONTEND_URLS || "").split(","),
 ]
+  .filter((origin) => typeof origin === "string")
   .map((origin) => origin.trim().replace(/\/+$/, ""))
   .filter(Boolean);
 
