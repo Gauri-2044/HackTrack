@@ -111,3 +111,16 @@ Size < 5MB
 
 // Confirm Password
 password === confirmPassword
+## Environment variables
+
+Set `VITE_BASE_API_URL` to the backend API base URL before building the client:
+
+```text
+VITE_BASE_API_URL=https://your-backend-domain.vercel.app/api
+```
+
+Vite embeds `VITE_*` variables into the frontend at build time. In Vercel,
+configure this variable for the deployment environment you are using
+(Production, Preview, or Development), then create a new deployment. Changing
+the variable without redeploying does not update the existing JavaScript
+bundle.
