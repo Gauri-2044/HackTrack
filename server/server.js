@@ -18,15 +18,28 @@ app.use(express.json());
 // Optional: Parses incoming requests from URL-encoded forms
 app.use(express.urlencoded({ extended: true })); 
 
-const allowedOrigins = [
+const configuredOrigins = [
   process.env.FRONTEND_URL,
-  ...(process.env.NODE_ENV !== "production"
-    ? ["http://localhost:5173"]
-    : []),
-].filter(Boolean);
+  ...(process.env.FRONTEND_URLS || "").split(","),
+]
+  .map((origin) => origin.trim().replace(/\/+$/, ""))
+  .filter(Boolean);
+
+const allowedOrigins = process.env.NODE_ENV === "production"
+  ? configuredOrigins
+  : [...configuredOrigins, "http://localhost:5173", "http://localhost:3000"];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin(origin, callback) {
+    // Requests such as health checks from curl have no browser Origin header.
+    if (!origin || allowedOrigins.includes(origin.replace(/\/+$/, ""))) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS origin is not allowed: ${origin}`));
+  },
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 

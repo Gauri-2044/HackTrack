@@ -157,7 +157,10 @@ Add these environment variables in the Vercel project settings:
 - `DATABASE_URL`: your hosted PostgreSQL connection string
 - `JWT_SECRET`: the production JWT secret
 - `FRONTEND_URL`: the deployed frontend origin, including `https://` and
-  without a trailing path
+  without a trailing slash, for example
+  `https://hacktrack-frontend.vercel.app`
+- `FRONTEND_URLS`: optional comma-separated list of additional frontend
+  origins, useful when testing a Vercel preview deployment
 
 After deployment, verify `https://<backend-domain>/api/health` returns a JSON
 success response. The frontend must set `VITE_BASE_API_URL` to
