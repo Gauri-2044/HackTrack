@@ -19,8 +19,43 @@ const Register = function() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  function validate(){
+  let newErrors = {};
+  // Name validation
+    if (formData.name.trim().length < 3) {
+      newErrors.name = "Name is not valid";
+    }
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Invalid email address";
+    }
+
+     // Password validation
+    if (!formData.password || !formData.teamCode) {
+      newErrors.password = "Secrets are required";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    }
+
+    return newErrors;
+}
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+     const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    
     console.log("Submitting registration form: ", formData);
     
     const response = await register(formData);

@@ -33,3 +33,25 @@ React.js • Node.js • Express.js • PostgreSQL • Prisma ORM • JWT Authen
 ## Built by : Gauri Bhasme
 
 #### Welcome for any issues and collaboration
+
+
+
+### Containers
+
+#### Local
+1. Frontend (*)
+2. Backend (*)
+3. DB
+Make chnages in code before containerization
+chnage backend url, DB URL, 
+
+#### While Hosting 
+1. Frontend (*)
+2. Backend (*)
+Add Neon URL as DB
+
+DB : prisma run
+
+Dockerfile  should be the name
+add .dockerignore
+

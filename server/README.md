@@ -145,6 +145,24 @@ Start Server
 
 npm run dev
 
+### Deploying the backend to Vercel
+
+Create the Vercel project from this repository and set **Root Directory** to
+`server`. The backend `vercel.json` and `package.json` must be resolved from
+that directory; deploying the repository root does not expose `server.js` and
+results in a Vercel 404.
+
+Add these environment variables in the Vercel project settings:
+
+- `DATABASE_URL`: your hosted PostgreSQL connection string
+- `JWT_SECRET`: the production JWT secret
+- `FRONTEND_URL`: the deployed frontend origin, including `https://` and
+  without a trailing path
+
+After deployment, verify `https://<backend-domain>/api/health` returns a JSON
+success response. The frontend must set `VITE_BASE_API_URL` to
+`https://<backend-domain>/api` before it is built and redeployed.
+
 ---
 
 ###  API Endpoints

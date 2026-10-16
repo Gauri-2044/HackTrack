@@ -54,3 +54,60 @@ Skeleton loading refers to placeholder shapes (like grey boxes or circles) that 
 1. Lighthouse
 2. Chrome Devtools
 3. PageSpeed Insights
+
+
+## Frontend side validation
+1. is it required or not - use required attribute in tag
+2. Data validation :
+- Store form data in state
+
+```bash
+const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+  ```
+
+- Validate fields on submit (or while typing)
+    - After Submission
+    Call validate function and call the submitting endpoint only if the validation is successful
+
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+        }
+
+    - While Typing
+
+
+- Show error messages to the user
+
+
+#### COMMON TYPE OF VALIDATIONS :
+// Name
+name.length >= 3
+
+// Email
+valid email regex
+
+// Password
+8+ chars
+1 Uppercase
+1 Lowercase
+1 Number
+1 Special Character
+
+// Phone
+10 digits
+
+// URL
+Valid URL
+
+// File Upload
+Only image/pdf
+Size < 5MB
+
+// Confirm Password
+password === confirmPassword

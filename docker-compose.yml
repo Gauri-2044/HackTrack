@@ -1,0 +1,47 @@
+# version: '3.8'
+name:
+  -"hacktrack"
+
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+  
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_USER=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_PASSWORD=W0rkC0nnection
+      - DB_NAME=hacktrack
+      - DATABASE_URL=postgresql://postgres:W0rkC0nnection@db:5432/hacktrack
+      - PORT=5000
+      - JWT_SECRET=gaurikahackathonportal
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=W0rkC0nnection
+      - POSTGRES_DB=hacktrack
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d hacktrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 import { login } from "../services/auth";
 
+
 const Login = function() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -18,8 +19,43 @@ const Login = function() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  function validate(){
+  let newErrors = {};
+  // Name validation
+    if (formData.teamName.trim().length < 3) {
+      newErrors.name = "teamName is not valid";
+    }
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Invalid email address";
+    }
+
+     // Password validation
+    if (!formData.password || !formData.teamCode) {
+      newErrors.password = "Secrets are required";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    }
+
+    return newErrors;
+}
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     console.log("Submitting login form: ", formData);
     
     const response = await login(formData);
@@ -194,6 +230,7 @@ const Login = function() {
                   placeholder="e.g. HACK-2025-XK9"
                   value={formData.teamCode}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
